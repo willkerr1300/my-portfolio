@@ -1,7 +1,10 @@
 import React from 'react';
-import { Music, Video, Database } from 'lucide-react';
+import { Music, Video, Database, ExternalLink } from 'lucide-react';
 
-import sheetMusicPreview from './assets/sheet-music-preview.png';
+// Import Screenshots
+import sheetMusicPreview from './assets/sheet-music-screenshot.png';
+import filmEmulationPreview from './assets/film-emulation.png';
+import mealPrepPreview from './assets/smart-meal-prep.png';
 
 const projects = [
   {
@@ -10,6 +13,7 @@ const projects = [
     icon: <Music size={32} />,
     tech: ["TypeScript", "React", "WebSocket", "CRDTs"],
     previewImage: sheetMusicPreview,
+    demoLink: "https://sheet-music-editor.onrender.com",
     metrics: [
       "Consistent State: 50+ Concurrent Users",
       "Payload Reduction: 65% vs JSON",
@@ -22,6 +26,8 @@ const projects = [
     title: "Film Emulation Engine",
     icon: <Video size={32} />,
     tech: ["Rust", "WASM", "WebGL", "React"],
+    previewImage: filmEmulationPreview,
+    demoLink: "https://willkerr1300.github.io/film-emulation-engine",
     metrics: [
       "Render Speed: ~8x faster (SIMD vs Naive)",
       "UI Blocking: Eliminated (GPU Offloading)",
@@ -33,10 +39,12 @@ const projects = [
     id: 3,
     title: "Smart Meal Prep Manager",
     icon: <Database size={32} />,
-    tech: ["Python", "React", "PostgreSQL", "CSP"],
+    tech: ["TypeScript", "React", "CSP", "Vite"],
+    previewImage: mealPrepPreview,
+    demoLink: "https://willkerr1300.github.io/smart-meal-prep",
     metrics: [
-      "Macro Accuracy: <5% Error Margin",
-      "Shopping Optimization: 35% SKU Reduction",
+      "Macro Accuracy: <3.7% Error Margin",
+      "Shopping Optimization: 80% SKU Reduction",
       "Recalculation: <15ms Latency"
     ],
     description: "An intelligent meal planner using Constraint Satisfaction Algorithms to optimize nutrition targets and grocery lists."
@@ -69,9 +77,14 @@ function App() {
             <p className="description">{project.description}</p>
 
             {project.previewImage && (
-              <div className="project-preview-container">
-                <img src={project.previewImage} alt={`${project.title} Preview`} className="project-preview" />
-              </div>
+              <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="preview-link">
+                <div className="project-preview-container">
+                  <img src={project.previewImage} alt={`${project.title} Preview`} className="project-preview" />
+                  <div className="overlay">
+                    <span><ExternalLink size={24} /> View Live Demo</span>
+                  </div>
+                </div>
+              </a>
             )}
 
             <div className="metrics-container">
@@ -82,6 +95,10 @@ function App() {
                 ))}
               </ul>
             </div>
+
+            <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="demo-btn">
+              View Live Demo <ExternalLink size={16} style={{ marginLeft: '8px' }} />
+            </a>
           </article>
         ))}
       </main>
